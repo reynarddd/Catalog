@@ -5,7 +5,6 @@ onMounted(() => {
     initFlowbite();
 })
 
-
 import Hello from './components/icons/Hello.vue';
 </script>
 
