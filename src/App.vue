@@ -5,12 +5,12 @@ onMounted(() => {
     initFlowbite();
 })
 
-import Hello from './components/icons/Hello.vue';
+import Router from './Router.vue';
 </script>
 
 
 <template>
-<Hello/>
+<Router/>
 </template>
 
 
