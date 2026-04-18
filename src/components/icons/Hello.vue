@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <h1 class="text-center my-8 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">We invest in the world’s potential</h1>
+        <h1 class="text-center my-8 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">The project of DummyJson*!</h1>
         <p class="text-center my-8 text-lg font-normal text-body lg:text-xl sm:px-16 xl:px-48">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
     </div>
     
@@ -16,21 +16,12 @@
             </button>
             <div id="dropdown" class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
                 <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdown-button">
-                    <li>
-                        <a href="#" class="block p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Shopping</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Images</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">News</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Finance</a>
+                    <li v-for="lists in list">
+                        <a @click="findCategory(lists)" href="#" class="block p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">{{ lists }}</a>
                     </li>
                 </ul>
             </div>
-            <input v-model="search_value" type="search" id="search-dropdown input-group-1" class="px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-brand focus:border-brand block w-full placeholder:text-body" placeholder="Search for products" required>
+            <input @keydown.enter="search" v-model="search_value" type="search" id="search-dropdown input-group-1" class="px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-brand focus:border-brand block w-full placeholder:text-body" placeholder="Search for products" required>
             <button @click="search" type="button" class="inline-flex items-center  text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-e-base text-sm px-4 py-2.5 focus:outline-none">
             <svg class="w-4 h-4 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
             Search
@@ -42,9 +33,9 @@
     
     
     
-    <div class="grid grid-cols-4 gap-2 w-screen mx-7">
+    <div class="grid grid-cols-4 gap-14 max-w-screen px-20">
         <div v-for="product in products">
-            <div class="bg-white block max-w-sm min-h-[650px] p-6 border border-default rounded-base shadow-xs my-5">
+            <div class="bg-white block w-fit min-h-[700px] p-6 border border-default rounded-base shadow-xs my-4 justify-center hover:scale-105 hover:drop-shadow-2xl transition-all">
                 <a href="#">
                     <img class="rounded-base" :src="product?.thumbnail" alt="" />
                 </a>
@@ -100,6 +91,7 @@ import axios from 'axios';
 export default{
     mounted(){
         this.fetchapi()
+        this.categoryList()
     },
     methods:{
         async fetchapi(){
@@ -109,6 +101,16 @@ export default{
         },
         async search(){
             const result = await axios.get(`https://dummyjson.com/products/search?q=${this.search_value}`);
+            this.products = result.data.products
+            console.log(this.products)
+        },
+        async categoryList(){
+            const category = await axios.get(`https://dummyjson.com/products/category-list`);
+            this.list = category.data
+            console.log(category)
+        },
+        async findCategory(category){
+            const result = await axios.get(`https://dummyjson.com/products/category/${category}`);
             this.products = result.data.products
             console.log(this.products)
         },
@@ -125,8 +127,7 @@ export default{
         goTo(num){
             this.pagination = num
             this.fetchapi()
-
-        }
+        },
     },
     data(){
         return {
@@ -134,8 +135,10 @@ export default{
             pagination : 1,
             query : '',
             search_value : '',
+            list : '',
         }
     },
+
 }
 
 </script>
