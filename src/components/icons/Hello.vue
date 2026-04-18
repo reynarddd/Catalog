@@ -1,12 +1,13 @@
 <template>
-    <div class="">
-        <h1 class="text-center my-8 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">The project of DummyJson*!</h1>
-        <p class="text-center my-8 text-lg font-normal text-body lg:text-xl sm:px-16 xl:px-48">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-    </div>
-    
-    <hr></hr>
 
-    <form class="max-w-2xl mx-auto my-5">
+    <nav class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
+    <div class="w-full flex flex-wrap items-center p-4 justify-between">
+    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
+        <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">DummyJson*</span>
+    </a>
+
+    <form class="shadow-xs rounded-base -space-x-0.5 md:order-2 hidden md:flex">
         <div class="flex shadow-xs rounded-base -space-x-0.5">
             <label for="search-dropdown" class="block mb-2.5 text-sm font-medium text-heading sr-only ">Your Email</label>
             <button id="dropdown-button" data-dropdown-toggle="dropdown" type="button" class="inline-flex items-center shrink-0 z-10 text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-s-base text-sm px-4 py-2.5 focus:outline-none">
@@ -29,20 +30,46 @@
         </div>
     </form>
 
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+        <div class="relative mt-3 md:hidden">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
+            </div>
+            <input type="text" id="input-group-1" class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-2.5 py-2 shadow-xs placeholder:text-body" placeholder="Search">
+        </div>
+        <ul class="font-medium flex flex-col absolute p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+            <li>
+            <a href="#" class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0" aria-current="page">Home</a>
+            </li>
+            <li>
+            <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">About</a>
+            </li>
+            <li>
+            <a href="#" class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Services</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
 
+
+    <div class="md:mt-28 mt-20">
+        <h1 class="text-center my-8 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">The project of DummyJson*!</h1>
+        <p class="text-center my-8 text-lg font-normal text-body lg:text-xl sm:px-16 xl:px-48">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+    </div>
     
+    <hr></hr>  
     
-    
-    <div class="grid grid-cols-4 gap-14 max-w-screen px-20">
-        <div v-for="product in products">
-            <div class="bg-white block w-fit min-h-[700px] p-6 border border-default rounded-base shadow-xs my-4 justify-center hover:scale-105 hover:drop-shadow-2xl transition-all">
+    <div class="grid grid-cols-2 md:grid-cols-4 md:gap-x-14 max-w-screen md:px-20 md:mx-0 mx-3 gap-x-3 mt-5">
+        <div v-for="product in products" class="flex items-center justify-center">
+            <div class="bg-white block md:w-fit md:min-h-[700px] w-full min-h-[275px] md:p-6 p-3 border border-default rounded-base shadow-xs my-4 justify-center hover:scale-105 hover:drop-shadow-2xl transition-all">
                 <a href="#">
                     <img class="rounded-base" :src="product?.thumbnail" alt="" />
                 </a>
                 <a href="#">
-                    <h5 class="mt-6 mb-2 text-2xl font-semibold tracking-tight text-black">{{product?.title || "Loading"}}</h5>
+                    <h5 class="mt-6 mb-2 text-md md:text-2xl font-semibold tracking-tight text-black">{{product?.title || "Loading"}}</h5>
                 </a>
-                <p class="mb-6 text-black">{{product?.description || "Loading"}}</p>
+                <p class="mb-6 text-black hidden md:block">{{product?.description || "Loading"}}</p>
                 <br></br>
                 <a :href="`/products/${ product?.id }`" class="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                     Read more
